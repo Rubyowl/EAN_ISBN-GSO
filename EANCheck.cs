@@ -6,48 +6,77 @@ using System.Threading.Tasks;
 
 namespace ISBN
 {
-    class EANCheck
+    class Check
     {
-        static bool checkEAN(string ean)
+        static bool CheckEAN(string ean)
         {
 
             char[] eanChars = ean.ToCharArray();
             var eanSumme = 0;
-
-            for (int i = 0; i < eanChars.Length - 2; i++)
+            if (eanChars.Length >= 13)
             {
-
-                var eanStelle = (int)eanChars[i];
-
-
-                if (i > 0)
+                for (int i = 0; i < eanChars.Length - 2; i++)
                 {
 
-                    if (i % 1 == 0)
+                    var eanStelle = (int)eanChars[i];
+
+
+                    if (i > 0)
                     {
-                        eanStelle *= 3;
+
+                        if (i % 1 == 0)
+                        {
+                            eanStelle *= 3;
+                        }
+
                     }
 
+                    eanStelle += eanSumme;
                 }
 
-                eanStelle += eanSumme;
+                char[] eanSummeChars = eanSumme.ToString().ToCharArray();
+
+                if (10 - eanSummeChars[eanSummeChars.Length - 1] == eanChars[eanChars.Length - 1])
+                {
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
             }
+            return false;
+        }
 
-            string eanSummeString = eanSumme.ToString();
-            char[] eanSummeChars = eanSummeString.ToCharArray();
-
-            if (10 - eanSummeChars[eanSummeChars.Length - 1] == eanChars[eanChars.Length - 1])
+        
+        static bool CheckISBN(string isbn) {
+            char[] isbnChars = isbn.ToCharArray();
+            var isbnSumme = 0;
+            var pruefziffer = 0;
+            
+            for (int i = 0; i > isbnChars.Length - 2;i++ )
             {
-                return true;
-
+                isbnSumme += ((int)isbnChars[i] * (i + 1));
             }
+
+            char[] isbnSummeChar = isbnSumme.ToString().ToCharArray();
+            
+            if( isbnChars[isbnChars.Length-1].Equals("X") ){
+                pruefziffer = 10;
+            }
+
             else
             {
-                return false;
-
+               pruefziffer = (int)isbnSummeChar[(isbnSummeChar.Length - 1)];
             }
 
-
+            if (isbnSumme % 11 == pruefziffer) { 
+                return true; 
+            }
+            return false;   
         }
+
+
     }
 }
