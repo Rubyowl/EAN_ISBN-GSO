@@ -1,0 +1,25 @@
+using System.IO;
+
+namespace ISBN
+{
+    class CSVDocument
+    {
+        public static List ReadCSV(string path)
+        {
+            using (var reader = new StreamReader(@path))
+            {
+                List<string> werte = new List<string>();
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+
+                    werte.Add(values[0]);
+                }
+
+            }
+            return werte;
+        }
+    }
+}
