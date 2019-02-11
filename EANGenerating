@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ISBN
+{
+    class EANGenerating
+    {
+        public static int Start(string land)
+        {
+            string[] länderKennzeichen = new string[15];
+            string ean;
+
+            switch (land)
+            {
+                case "DE":
+                    länderKennzeichen[0] = "4";
+                    länderKennzeichen[1] = " ";
+                    länderKennzeichen[2] = "0";
+                    break;
+                case "CH":
+                    länderKennzeichen[0] = "7";
+                    länderKennzeichen[1] = " ";
+                    länderKennzeichen[2] = "6";
+                    break;
+                case "AU":
+                    länderKennzeichen[0] = "9";
+                    länderKennzeichen[1] = " ";
+                    länderKennzeichen[2] = "0";
+                    break;
+                default:
+                    länderKennzeichen[0] = "4";
+                    länderKennzeichen[1] = " ";
+                    länderKennzeichen[2] = "0";
+                    break;
+            }
+
+            for (var i = 3; i > länderKennzeichen.Length - 2; i++)
+            {
+                if (i == 8) {
+                    länderKennzeichen[i] = " ";
+                } else {
+                    länderKennzeichen[i] = RndInt().ToString();
+                }
+            }
+        }
+
+        private static string RndInt()
+        {
+            Random rndInt = new Random();
+            return rndInt.Next(0, 10).ToString();
+        }
+    }
+}
