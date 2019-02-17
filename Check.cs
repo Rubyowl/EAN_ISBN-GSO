@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISBN
+namespace ConsoleApp1
 {
     class Check
     {
-        static bool CheckEAN(string ean)
+       public static bool CheckEAN(string ean)
         {
 
             char[] eanChars = ean.ToCharArray();
@@ -50,25 +50,25 @@ namespace ISBN
         }
 
         
-        static bool CheckISBN(string isbn) {
+        public static bool CheckISBN(string isbn) {
             char[] isbnChars = isbn.ToCharArray();
             var isbnSumme = 0;
             var pruefziffer = 0;
             
-            for (int i = 0; i > isbnChars.Length - 2;i++ )
+            for (int i = 0; i <= isbnChars.Length - 2;i++ )
             {
-                isbnSumme += ((int)isbnChars[i] * (i + 1));
+                isbnSumme += (Int32.Parse(isbnChars[i].ToString()) * (i + 1));
             }
 
             char[] isbnSummeChar = isbnSumme.ToString().ToCharArray();
-            
-            if( isbnChars[isbnChars.Length-1].Equals("X") ){
+
+            if(isbnChars[isbnChars.Length-1].ToString().Equals("X")){
                 pruefziffer = 10;
             }
 
             else
             {
-               pruefziffer = (int)isbnSummeChar[(isbnSummeChar.Length - 1)];
+               pruefziffer = Int32.Parse(isbnSummeChar[(isbnSummeChar.Length-1)].ToString());
             }
 
             if (isbnSumme % 11 == pruefziffer) { 
